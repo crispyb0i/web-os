@@ -1,5 +1,5 @@
 import React from 'react';
-import { Search, Power, Settings as SettingsIcon, User, FileText, Calculator as CalculatorIcon, Palette, Folder, Globe } from 'lucide-react';
+import { Search, Settings as SettingsIcon, User, FileText, Calculator as CalculatorIcon, Palette, Folder, Globe } from 'lucide-react';
 import { useWindowStore } from '../../store/windowStore';
 import Notepad from '../apps/Notepad';
 import Calculator from '../apps/Calculator';
@@ -165,7 +165,20 @@ const StartMenu: React.FC<StartMenuProps> = ({ isOpen, onClose }) => {
                 <div className="mt-8">
                     <h3 className="text-sm font-semibold text-white mb-4">Recommended</h3>
                     <div className="flex flex-col gap-1">
-                        <button className="flex items-center gap-3 p-2 rounded hover:bg-white/10 text-left">
+                        <button
+                            className="flex items-center gap-3 p-2 rounded hover:bg-white/10 text-left"
+                            onClick={() => {
+                                openWindow({
+                                    id: `notepad-welcome-${Date.now()}`,
+                                    title: 'Welcome.txt - Notepad',
+                                    icon: <FileText size={16} />,
+                                    component: <Notepad fileId="welcome" />,
+                                    position: { x: 150, y: 150 },
+                                    size: { width: 500, height: 400 },
+                                });
+                                onClose();
+                            }}
+                        >
                             <div className="w-8 h-8 bg-slate-700 rounded flex items-center justify-center text-white/50">
                                 <User size={16} />
                             </div>
@@ -201,16 +214,13 @@ const StartMenu: React.FC<StartMenuProps> = ({ isOpen, onClose }) => {
             </div>
 
             {/* Footer */}
-            <div className="p-4 bg-slate-950/50 border-t border-white/10 flex justify-between items-center rounded-b-xl">
-                <button className="flex items-center gap-3 hover:bg-white/10 p-2 rounded transition-colors">
+            <div className="p-4 bg-slate-950/50 border-t border-white/10 flex items-center rounded-b-xl">
+                <div className="flex items-center gap-3 p-2 rounded cursor-default">
                     <div className="w-8 h-8 bg-purple-600 rounded-full flex items-center justify-center text-white font-bold">
                         U
                     </div>
                     <span className="text-sm text-white font-medium">User</span>
-                </button>
-                <button className="p-2 hover:bg-white/10 rounded transition-colors text-white">
-                    <Power size={20} />
-                </button>
+                </div>
             </div>
         </div>
     );
