@@ -1,5 +1,5 @@
 import { create } from 'zustand';
-import { ReactNode } from 'react';
+import type { ReactNode } from 'react';
 
 export interface WindowState {
     id: string;
